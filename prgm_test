@@ -1,0 +1,7 @@
+A: Pnt(4, 3)
+v: Vect(A, Pnt(1, 1))
+l: v.mes
+
+print "longueur : ", l
+A.x: 2
+print "longueur : ", l
