@@ -1,7 +1,5 @@
-A: Pnt(4, 3)
-v: Vect(A, Pnt(1, 1))
-l: v.mes
-
-print "longueur : ", l
-A.x: 2
-print "longueur : ", l
+Pnt A: Pnt(4, 3) !
+Vect v: Vect(42, -8.3) !
+Scal x: 5.5 !
+Seg s: Seg(A, Pnt(x, x)) !
+String ch4: "rtyjn" !
