@@ -1,0 +1,30 @@
+Operation = Term { AddOp Term }
+AddOp = «+» | «-»
+Term = Factor { MulOp Factor }
+MulOp = «*» | «/» | «%» | «^»
+Factor = [ «-» ] Primary
+Primary = Identifier | Instanciation | Scal | «(» Operation «)»
+
+Instruction = Declaration | Affectation «!»
+Declaration = Type Identifier [ «:» ObjPnt | ObjVect | ObjLine | ObjSeg | ObjAng | ObjScal | ObjString ]
+Affectation = Identifier «:» ObjPnt | ObjVect | ObjLine | ObjSeg | ObjAng | ObjScal | ObjString
+
+Type = "Pnt" | "Vect" | "Line" | "Seg" | "Ang" | "Scal" | "String"
+
+ObjScal = Identifier | Addition
+ObjPnt = Identifier | InstPnt
+ObjVect = Identifier | InstVect
+ObjLine = Identifier | InstLine
+ObjSeg = Identifier | InstSeg
+ObjAng = Identifier | InstAng
+ObjScal = Identifier | Scal
+ObjString = Identifier | String
+
+InstPnt = «Pnt» «(» ObjScal «,» ObjScal «)»
+InstVect = «Vect» «(» ObjScal «,» ObjScal «)»
+InstLine = «Line» «(» ObjPnt «,» ObjPnt «)»
+InstSeg = «Seg» «(» ObjPnt «,» ObjPnt «)»
+InstAng = «Ang» «(» ObjVect «,» ObjVect «)»
+
+Scal = [ «-» ] { digit } [ «.» digit { digit } ]
+String = «"» { chr } «"»
