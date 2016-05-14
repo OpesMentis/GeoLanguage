@@ -48,6 +48,9 @@ class Lexer:
 
         token_exprs = [
                 (r'[ \n\t]+',               None),
+				(r'main',                  'main'),
+				(r'>',                     'gt'),
+				(r'<',                     'lt'),
                 (r'\{',		               'l_acc'),
                 (r'\}',		               'r_acc'),
 				(r'\".*\"',                'ch'),
@@ -60,6 +63,8 @@ class Lexer:
                 (r'-',                     'minus'),
                 (r'\*',                    'multi'),
                 (r'/',                     'divi'),
+				(r'%',                     'mod'),
+				(r'\^',                    'pow'),
                 (r'=',                     'equal'),
                 (r'\"',		               'quote'),
 				(r'!',                     'excl'),
@@ -72,7 +77,7 @@ class Lexer:
 				(r'Scal',                  'scal'),
 				(r'print',                 'print'),
 				(r'drawnow',               'draw'),
-                (r'\-?[0-9]+(\.[0-9]+)?',  'nb'),
+                (r'[0-9]+(\.[0-9]+)?',  'nb'),
                 (r'[A-Za-z][A-Za-z0-9_]*', 'ident'),
             ]
 

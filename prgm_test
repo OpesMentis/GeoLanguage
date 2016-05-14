@@ -1,5 +1,7 @@
-Pnt A: Pnt(4, 3) !
-Vect v: Vect(42, -8.3) !
-Scal x: 5.5 !
-Seg s: Seg(A, Pnt(x, x)) !
-String ch4: "rtyjn" !
+main {
+	Pnt A: Pnt(4, 3) !
+	Vect v: Vect(42, -8.3) !
+	Scal x: (5.5 + 2) - (3*8) !
+	Seg s: Seg(A, Pnt(x, x)) !
+	String ch4: "rtyjn" !
+}

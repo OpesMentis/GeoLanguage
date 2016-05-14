@@ -17,8 +17,11 @@ class Parser:
 		self.lexer.tokenize(ch)
 
 		print("+++ PARSER +++")
-		while True:
+		self.expect('main')
+		self.expect('l_acc')
+		while (self.showNext().kind != 'r_acc'):
 			self.parseInstruction()
+		self.expect('r_acc')
 
 	def expect(self, token_kind):
 		next_tok = self.lexer.getNext()
@@ -100,7 +103,7 @@ class Parser:
 		self.expect('excl')
 
 	def parseDeclScal(self):
-		print ("Parse declaration segment")
+		print ("Parse declaration scalaire")
 		self.expect('scal')
 		self.expect('ident')
 		if self.showNext().kind != 'excl':
@@ -194,13 +197,10 @@ class Parser:
 
 	def parseObjScal(self):
 		print('Parse objet scalaire')
-		if self.showNext().kind == 'minus':
-			self.expect('minus')
-			self.expect('nb')
-		elif self.showNext().kind == 'nb':
-			self.expect('nb')
-		elif self.showNext().kind == 'ident':
-			self.expect('ident')
+		if self.showNext().kind == 'ident':
+			self.acceptIt()
+		elif self.showNext().kind in ['minus', 'plus', 'l_par', 'nb']:
+			self.parseOperation()
 		else:
 			print ("GOSH! Parsing error for ObjScal ligne : ", self.showNext().pos)
 			sys.exit(0)
@@ -212,8 +212,39 @@ class Parser:
 		elif self.showNext().kind == 'ident':
 			self.expect('ident')
 		else:
-			print ("GOSH! Parsing error for ObjScal ligne : ", self.showNext().pos)
+			print ("GOSH! Parsing error for ObjString ligne : ", self.showNext().pos)
 			sys.exit(0)
+
+	def parseOperation(self):
+		print ("Parse operation")
+		self.parseTerm()
+		while (self.showNext().kind in ['minus', 'plus']):
+			self.acceptIt()
+			self.parseTerm()
+
+	def parseTerm(self):
+		print ('Parse term')
+		self.parseFactor()
+		while (self.showNext().kind in ['multi', 'divi', 'mod', 'pow']):
+			self.acceptIt()
+			self.parseFactor()
+
+	def parseFactor(self):
+		print ('Parse factor')
+		if self.showNext().kind == 'minus':
+			self.acceptIt()
+		self.parsePrimary()
+
+	def parsePrimary(self):
+		print ('Parse primary')
+		if self.showNext().kind == 'ident':
+			self.acceptIt()
+		elif self.showNext().kind == 'nb':
+			self.acceptIt()
+		elif self.showNext().kind == 'l_par':
+			self.acceptIt()
+			self.parseOperation()
+			self.expect('r_par')
 
 if __name__ == '__main__':
     parser = Parser()

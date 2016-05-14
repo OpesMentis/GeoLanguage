@@ -2,8 +2,8 @@ Operation = Term { AddOp Term }
 AddOp = «+» | «-»
 Term = Factor { MulOp Factor }
 MulOp = «*» | «/» | «%» | «^»
-Factor = [ «-» ] Primary
-Primary = Identifier | Instanciation | Scal | «(» Operation «)»
+Factor = [ "-" ] Primary
+Primary = Identifier | Scal | "(" Operation ")"
 
 Instruction = Declaration | Affectation «!»
 Declaration = Type Identifier [ «:» ObjPnt | ObjVect | ObjLine | ObjSeg | ObjAng | ObjScal | ObjString ]
@@ -11,13 +11,12 @@ Affectation = Identifier «:» ObjPnt | ObjVect | ObjLine | ObjSeg | ObjAng | Ob
 
 Type = "Pnt" | "Vect" | "Line" | "Seg" | "Ang" | "Scal" | "String"
 
-ObjScal = Identifier | Addition
+ObjScal = Identifier | Operation
 ObjPnt = Identifier | InstPnt
 ObjVect = Identifier | InstVect
 ObjLine = Identifier | InstLine
 ObjSeg = Identifier | InstSeg
 ObjAng = Identifier | InstAng
-ObjScal = Identifier | Scal
 ObjString = Identifier | String
 
 InstPnt = «Pnt» «(» ObjScal «,» ObjScal «)»
