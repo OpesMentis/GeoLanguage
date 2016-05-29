@@ -15,13 +15,9 @@ class Parser:
 		f = open(filename)
 		ch = f.readlines()
 		self.lexer.tokenize(ch)
-
 		print("+++ PARSER +++")
-		self.expect('main')
-		self.expect('l_acc')
-		while (self.showNext().kind != 'r_acc'):
+		while (self.getLexer().getStream() != []):
 			self.parseInstruction()
-		self.expect('r_acc')
 
 	def expect(self, token_kind):
 		next_tok = self.lexer.getNext()
@@ -44,6 +40,8 @@ class Parser:
 			self.parseDeclaration()
 		#elif self.showNext().kind == 'ident':
 			#self.parseAffectation()
+		elif self.showNext().kind in ["print"]:
+			self.parsePrint()
 		else:
 			print ("GOSH! Parsing error for Instruction ligne : ", self.showNext().pos)
 			sys.exit(0)
@@ -245,6 +243,21 @@ class Parser:
 			self.acceptIt()
 			self.parseOperation()
 			self.expect('r_par')
+
+	def parsePrint(self):
+		print ('Parse print')
+		self.expect('print')
+		self.expect('colon')
+		while self.showNext().kind != 'excl':
+			if self.showNext().kind == 'pipe':
+				self.acceptIt()
+				self.parseObjScal()
+				self.expect('pipe')
+			else:
+				self.parseObjString()
+			if self.showNext().kind != 'excl':
+				self.expect('plus')
+		self.expect('excl')
 
 if __name__ == '__main__':
     parser = Parser()

@@ -17,7 +17,7 @@ ObjVect = Identifier | InstVect
 ObjLine = Identifier | InstLine
 ObjSeg = Identifier | InstSeg
 ObjAng = Identifier | InstAng
-ObjString = Identifier | String
+ObjString = Identifier | String | "|" ObjScal "|" | ObjString "+" ObjString
 
 InstPnt = «Pnt» «(» ObjScal «,» ObjScal «)»
 InstVect = «Vect» «(» ObjScal «,» ObjScal «)»
@@ -25,5 +25,7 @@ InstLine = «Line» «(» ObjPnt «,» ObjPnt «)»
 InstSeg = «Seg» «(» ObjPnt «,» ObjPnt «)»
 InstAng = «Ang» «(» ObjVect «,» ObjVect «)»
 
+Print = "print" ObjString { "+" ObjString }
+
 Scal = [ «-» ] { digit } [ «.» digit { digit } ]
-String = «"» { chr } «"»
+String = «"» { char } «"»

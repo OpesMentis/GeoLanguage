@@ -77,7 +77,8 @@ class Lexer:
 				(r'Scal',                  'scal'),
 				(r'print',                 'print'),
 				(r'drawnow',               'draw'),
-                (r'[0-9]+(\.[0-9]+)?',  'nb'),
+                (r'[0-9]+(\.[0-9]+)?',     'nb'),
+                (r'\|',                    'pipe'),
                 (r'[A-Za-z][A-Za-z0-9_]*', 'ident'),
             ]
 
