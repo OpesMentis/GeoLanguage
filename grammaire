@@ -25,7 +25,7 @@ InstLine = «Line» «(» ObjPnt «,» ObjPnt «)»
 InstSeg = «Seg» «(» ObjPnt «,» ObjPnt «)»
 InstAng = «Ang» «(» ObjVect «,» ObjVect «)»
 
-Print = "print" ObjString { "+" ObjString }
+Print = "print" ObjString
 
 Scal = [ «-» ] { digit } [ «.» digit { digit } ]
 String = «"» { char } «"»
